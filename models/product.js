@@ -18,10 +18,19 @@ module.exports = class Product {
     );
   }
 
-  static deleteById(id) {}
+  static deleteById(id) {
+    return db.execute('delete from products where products.id = ?', [id])
+  }
 
   static fetchAll() {
     return db.execute('SELECT * FROM products');
+  }
+
+  updateProduct() {
+    return db.execute(
+      'UPDATE products SET title=?, price=?, imageUrl=?, description=? WHERE id=?',
+      [this.title, this.price, this.imageUrl, this.description, this.id]
+    );
   }
 
   static findById(id) {
